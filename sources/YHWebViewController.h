@@ -9,22 +9,32 @@
 #import <UIKit/UIKit.h>
 
 typedef NS_ENUM(NSUInteger, YHLoadWebType) {
-    YHLoadWebTypeURLString = 1,//内容
-    YHLoadWebTypeHTMLString,//标签
-    YHLoadWebTypePOSTString//内容和标签
+    YHLoadWebTypeURLString = 1, // 加载url
+    YHLoadWebTypeHTMLString,    // 加载本地html文件
+    YHLoadWebTypeHTMLLabel      // 加载html标签
 };
 
 @interface YHWebViewController : UIViewController
 
 /*
- * 加载类型 默认是YHLoadWebTypeURLString
+ * load type default is YHLoadWebTypeURLString
  */
 @property (nonatomic, assign) YHLoadWebType loadWebType;
 
 /*
- * 加载url
+ * load url is necessary
  */
 @property (nonatomic, copy) NSString *openUrl;
+
+/*
+ * A Boolean value indicating whether realProgress is allowed.default is NO
+ */
+@property (nonatomic, assign) BOOL allowRealProgress;
+
+/*
+ * progressView Color.   default is rgb (0,175,255,1)
+ */
+@property (nonatomic, strong) UIColor *progressColor;
 
 
 @end

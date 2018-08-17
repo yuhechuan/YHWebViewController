@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		F0AA9ADD2113180000967F9D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F0AA9ADC2113180000967F9D /* AppDelegate.m */; };
-		F0AA9AE02113180000967F9D /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F0AA9ADF2113180000967F9D /* ViewController.m */; };
 		F0AA9AE32113180000967F9D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F0AA9AE12113180000967F9D /* Main.storyboard */; };
 		F0AA9AE52113180200967F9D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F0AA9AE42113180200967F9D /* Assets.xcassets */; };
 		F0AA9AE82113180200967F9D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F0AA9AE62113180200967F9D /* LaunchScreen.storyboard */; };
@@ -16,6 +15,10 @@
 		F0AA9AF52113180200967F9D /* YHWebViewControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F0AA9AF42113180200967F9D /* YHWebViewControllerTests.m */; };
 		F0AA9B002113180200967F9D /* YHWebViewControllerUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = F0AA9AFF2113180200967F9D /* YHWebViewControllerUITests.m */; };
 		F0AA9B102113186000967F9D /* YHWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F0AA9B0F2113186000967F9D /* YHWebViewController.m */; };
+		F0BCE6262126973600289E3A /* YHWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = F0BCE6252126973600289E3A /* YHWebView.m */; };
+		F0BCE6292126AC9800289E3A /* YHFristViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F0BCE6282126AC9800289E3A /* YHFristViewController.m */; };
+		F0BCE62C2126B2BF00289E3A /* YHButton.m in Sources */ = {isa = PBXBuildFile; fileRef = F0BCE62B2126B2BF00289E3A /* YHButton.m */; };
+		F0BCE62F2126B59400289E3A /* YHWebViewProgress.m in Sources */ = {isa = PBXBuildFile; fileRef = F0BCE62D2126B59300289E3A /* YHWebViewProgress.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -39,8 +42,6 @@
 		F0AA9AD82113180000967F9D /* YHWebViewController.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YHWebViewController.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F0AA9ADB2113180000967F9D /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		F0AA9ADC2113180000967F9D /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		F0AA9ADE2113180000967F9D /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		F0AA9ADF2113180000967F9D /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		F0AA9AE22113180000967F9D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		F0AA9AE42113180200967F9D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F0AA9AE72113180200967F9D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -54,6 +55,14 @@
 		F0AA9B012113180200967F9D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F0AA9B0E2113186000967F9D /* YHWebViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YHWebViewController.h; sourceTree = "<group>"; };
 		F0AA9B0F2113186000967F9D /* YHWebViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YHWebViewController.m; sourceTree = "<group>"; };
+		F0BCE6242126973600289E3A /* YHWebView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YHWebView.h; sourceTree = "<group>"; };
+		F0BCE6252126973600289E3A /* YHWebView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YHWebView.m; sourceTree = "<group>"; };
+		F0BCE6272126AC9800289E3A /* YHFristViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YHFristViewController.h; sourceTree = "<group>"; };
+		F0BCE6282126AC9800289E3A /* YHFristViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YHFristViewController.m; sourceTree = "<group>"; };
+		F0BCE62A2126B2BF00289E3A /* YHButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YHButton.h; sourceTree = "<group>"; };
+		F0BCE62B2126B2BF00289E3A /* YHButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YHButton.m; sourceTree = "<group>"; };
+		F0BCE62D2126B59300289E3A /* YHWebViewProgress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YHWebViewProgress.m; sourceTree = "<group>"; };
+		F0BCE62E2126B59300289E3A /* YHWebViewProgress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YHWebViewProgress.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,10 +114,12 @@
 		F0AA9ADA2113180000967F9D /* YHWebViewController */ = {
 			isa = PBXGroup;
 			children = (
+				F0BCE62A2126B2BF00289E3A /* YHButton.h */,
+				F0BCE62B2126B2BF00289E3A /* YHButton.m */,
+				F0BCE6272126AC9800289E3A /* YHFristViewController.h */,
+				F0BCE6282126AC9800289E3A /* YHFristViewController.m */,
 				F0AA9ADB2113180000967F9D /* AppDelegate.h */,
 				F0AA9ADC2113180000967F9D /* AppDelegate.m */,
-				F0AA9ADE2113180000967F9D /* ViewController.h */,
-				F0AA9ADF2113180000967F9D /* ViewController.m */,
 				F0AA9AE12113180000967F9D /* Main.storyboard */,
 				F0AA9AE42113180200967F9D /* Assets.xcassets */,
 				F0AA9AE62113180200967F9D /* LaunchScreen.storyboard */,
@@ -139,8 +150,12 @@
 		F0AA9B0D2113183E00967F9D /* sources */ = {
 			isa = PBXGroup;
 			children = (
+				F0BCE62E2126B59300289E3A /* YHWebViewProgress.h */,
+				F0BCE62D2126B59300289E3A /* YHWebViewProgress.m */,
 				F0AA9B0E2113186000967F9D /* YHWebViewController.h */,
 				F0AA9B0F2113186000967F9D /* YHWebViewController.m */,
+				F0BCE6242126973600289E3A /* YHWebView.h */,
+				F0BCE6252126973600289E3A /* YHWebView.m */,
 			);
 			path = sources;
 			sourceTree = "<group>";
@@ -275,10 +290,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F0AA9AE02113180000967F9D /* ViewController.m in Sources */,
+				F0BCE6292126AC9800289E3A /* YHFristViewController.m in Sources */,
 				F0AA9AEB2113180200967F9D /* main.m in Sources */,
 				F0AA9B102113186000967F9D /* YHWebViewController.m in Sources */,
+				F0BCE62F2126B59400289E3A /* YHWebViewProgress.m in Sources */,
 				F0AA9ADD2113180000967F9D /* AppDelegate.m in Sources */,
+				F0BCE6262126973600289E3A /* YHWebView.m in Sources */,
+				F0BCE62C2126B2BF00289E3A /* YHButton.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -450,6 +468,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = JX84U25WS9;
 				INFOPLIST_FILE = YHWebViewController/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -467,6 +486,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = JX84U25WS9;
 				INFOPLIST_FILE = YHWebViewController/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

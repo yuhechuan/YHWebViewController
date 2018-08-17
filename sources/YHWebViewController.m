@@ -8,12 +8,15 @@
 
 #import "YHWebViewController.h"
 #import <WebKit/WebKit.h>
+#import "YHWebView.h"
+#import "YHWebViewProgress.h"
 
 static void *WkwebBrowserContext = &WkwebBrowserContext;
 
-@interface YHWebViewController ()<WKNavigationDelegate,WKUIDelegate,WKScriptMessageHandler,UINavigationControllerDelegate,UINavigationBarDelegate>
+@interface YHWebViewController ()<WKScriptMessageHandler,UINavigationControllerDelegate,UINavigationBarDelegate>
 
-@property (nonatomic, strong) WKWebView *wkWebView;
+@property (nonatomic, strong) YHWebView *wkWebView;
+@property (nonatomic, strong) YHWebViewProgress *progressView;
 
 @end
 
@@ -21,12 +24,36 @@ static void *WkwebBrowserContext = &WkwebBrowserContext;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    [self loadWebViewURL];
+    [self addConfiguration];
     // Do any additional setup after loading the view.
 }
 
+- (void)addConfiguration {
+    [self.view addSubview:self.wkWebView];
+    //进度条
+    [self.navigationController.navigationBar addSubview:self.progressView];
+    [self configurationDelegate];
+}
 
-- (void)loadWebViewURL{
+- (void)configurationDelegate {
+    typeof(self) __weak weakSelf = self;
+    self.wkWebView.observer = ^(NSDictionary *observer) {
+        if (observer[@"title"]) {
+            weakSelf.title = observer[@"title"];
+        }
+        if (observer[@"progress"] && weakSelf.allowRealProgress) {
+            NSLog(@"%f",[observer[@"progress"] floatValue]);
+            [weakSelf.progressView setProgress:[observer[@"progress"] floatValue]];
+        }
+    };
+    
+    self.wkWebView.didFinish = ^(WKWebView *webView) {
+        [weakSelf.progressView setProgress:1.0];
+    };
+}
+
+- (void)loadWebViewURL {
     switch (self.loadWebType) {
         case YHLoadWebTypeURLString:{
             [self loadURLString];
@@ -36,11 +63,14 @@ static void *WkwebBrowserContext = &WkwebBrowserContext;
             [self loadHostPathURL:self.openUrl];
             break;
         }
-        case YHLoadWebTypePOSTString:{
+        case YHLoadWebTypeHTMLLabel:{
             //self.needLoadJSPOST = YES;
-            [self loadHostPathURL:@"WKJSPOST"];
+            [self loadHTMLLabel:self.openUrl];
             break;
         }
+        default:
+            [self loadURLString];
+            break;
     }
 }
 
@@ -58,6 +88,10 @@ static void *WkwebBrowserContext = &WkwebBrowserContext;
     self.view.clipsToBounds = YES;
     NSURLRequest* loadRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:[self encodeUrl]] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:60.0];
     [self.wkWebView loadRequest:loadRequest];
+}
+
+- (void)loadHTMLLabel:(NSString *)html {
+    [self.wkWebView loadHTMLString:html baseURL:nil];
 }
 
 - (NSString *)encodeUrl {
@@ -80,38 +114,31 @@ static void *WkwebBrowserContext = &WkwebBrowserContext;
 }
 
 
-- (WKWebView *)wkWebView{
+
+#pragma mark WKScriptMessageHandler
+
+- (void)userContentController:(WKUserContentController *)userContentController didReceiveScriptMessage:(WKScriptMessage *)message {
+    
+}
+
+
+- (YHWebView *)wkWebView{
     if (!_wkWebView) {
-        WKWebViewConfiguration *configuration = [[WKWebViewConfiguration alloc]init];
-        configuration.allowsAirPlayForMediaPlayback = YES;//允许视频播放
-        configuration.allowsInlineMediaPlayback = YES;    // 允许在线播放
-        configuration.selectionGranularity = YES;         // 允许可以与网页交互，选择视图
-
-        configuration.processPool = [[WKProcessPool alloc] init]; // web内容处理池
-
-        WKUserContentController *userContentController = [[WKUserContentController alloc]init];
-        [userContentController addScriptMessageHandler:self name:@"WXPay"]; // 添加消息处理，注意：self指代的对象需要遵守WKScriptMessageHandler协议，结束时需要移除
-        configuration.suppressesIncrementalRendering = YES;                 // 是否支持记忆读取
-        configuration.userContentController = userContentController;        // 允许用户更改网页的设置
-
-        _wkWebView = [[WKWebView alloc] initWithFrame:self.view.bounds configuration:configuration];
-        _wkWebView.backgroundColor = [UIColor whiteColor];
-        _wkWebView.navigationDelegate = self;
-        _wkWebView.UIDelegate = self;
-        //kvo 添加进度监控
-        [_wkWebView addObserver:self forKeyPath:@"title" options:NSKeyValueObservingOptionNew context:WkwebBrowserContext];
-        
-        _wkWebView.allowsBackForwardNavigationGestures = YES;        //开启手势触摸
-        [_wkWebView sizeToFit];                                      //适应你设定的尺寸
+        _wkWebView = [[YHWebView alloc] initWithFrame:self.view.bounds];
     }
     return _wkWebView;
 }
 
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
-    if ([keyPath isEqualToString:@"title"]) {
-        self.title = change[@"new"];
+- (YHWebViewProgress *)progressView {
+    if (!_progressView) {
+        CGFloat progressBarHeight = 3.0;
+        CGRect navigaitonBarBounds = self.navigationController.navigationBar.bounds;
+        CGRect barFrame = CGRectMake(0, navigaitonBarBounds.size.height, navigaitonBarBounds.size.width, progressBarHeight);
+        _progressView = [[YHWebViewProgress alloc] initWithFrame:barFrame];
+        _progressView.progressColor = self.progressColor?:[UIColor colorWithRed:0 green:175/255.0 blue:255/255.0 alpha:1];
+        if (!self.allowRealProgress) [_progressView displayStartAnimation];
     }
+    return _progressView;
 }
-
 
 @end
