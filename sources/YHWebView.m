@@ -37,9 +37,10 @@ static void *WkwebBrowserContext = &WkwebBrowserContext;
     self.userContentController = userContentController;        // 允许用户更改网页的设置
 }
 
+
 @end
 
-@interface YHWebView ()<WKUIDelegate,WKNavigationDelegate>
+@interface YHWebView ()<WKUIDelegate,WKNavigationDelegate,WKScriptMessageHandler>
 
 @end
 
@@ -74,6 +75,8 @@ static void *WkwebBrowserContext = &WkwebBrowserContext;
     [self addObserver:self forKeyPath:NSStringFromSelector(@selector(estimatedProgress)) options:0 context:WkwebBrowserContext];
     self.allowsBackForwardNavigationGestures = YES;        //开启手势触摸
     [self sizeToFit];
+    
+    [self.configuration.userContentController addScriptMessageHandler:self name:@"uploadImageFromIOS"];
 }
 
 
@@ -99,6 +102,10 @@ static void *WkwebBrowserContext = &WkwebBrowserContext;
     if (self.didFinish) {
         self.didFinish(webView);
     }
+}
+
+- (void)userContentController:(WKUserContentController *)userContentController didReceiveScriptMessage:(WKScriptMessage *)message {
+    NSLog(@"%@",message);
 }
 
 

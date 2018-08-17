@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        function uploadImageFromIOS(){
+            alert("yuhechuan");
+        }
+    
+    //判断是否是安卓还是ios
+    function isAndroid_ios(){
+        var u = navigator.userAgent, app = navigator.appVersion;
+        var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Linux') > -1; //android终端或者uc浏览器
+        var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+                              alert(isiOS);
+                              return isiOS==true?true:false;
+        }
+        function showBase64Image(e){
+            document.getElementById('img').src=e.image;
+        }
+    </script>
+    <style type="text/css">
+        #img {
+            height: 600px;
+            width:600px;
+            background-color:red;
+            position:auto;
+        }
+    </style>
+</head>
+<body>
+        <button type="submit" id="btn_submit" onclick="uploadImageFromIOS()"> submit </button>
+        <img id="img" alt="Base64 encoded image">
+    
+</body>
+
+
+
+</html>

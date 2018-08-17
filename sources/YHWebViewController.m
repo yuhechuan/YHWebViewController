@@ -34,6 +34,7 @@ static void *WkwebBrowserContext = &WkwebBrowserContext;
     //进度条
     [self.navigationController.navigationBar addSubview:self.progressView];
     [self configurationDelegate];
+    [self configurationJS];
 }
 
 - (void)configurationDelegate {
@@ -51,6 +52,9 @@ static void *WkwebBrowserContext = &WkwebBrowserContext;
     self.wkWebView.didFinish = ^(WKWebView *webView) {
         [weakSelf.progressView setProgress:1.0];
     };
+}
+
+- (void)configurationJS {
 }
 
 - (void)loadWebViewURL {
@@ -118,7 +122,7 @@ static void *WkwebBrowserContext = &WkwebBrowserContext;
 #pragma mark WKScriptMessageHandler
 
 - (void)userContentController:(WKUserContentController *)userContentController didReceiveScriptMessage:(WKScriptMessage *)message {
-    
+    NSLog(@"%@",message);
 }
 
 

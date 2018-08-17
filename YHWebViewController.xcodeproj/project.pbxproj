@@ -19,6 +19,7 @@
 		F0BCE6292126AC9800289E3A /* YHFristViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F0BCE6282126AC9800289E3A /* YHFristViewController.m */; };
 		F0BCE62C2126B2BF00289E3A /* YHButton.m in Sources */ = {isa = PBXBuildFile; fileRef = F0BCE62B2126B2BF00289E3A /* YHButton.m */; };
 		F0BCE62F2126B59400289E3A /* YHWebViewProgress.m in Sources */ = {isa = PBXBuildFile; fileRef = F0BCE62D2126B59300289E3A /* YHWebViewProgress.m */; };
+		F0BCE6322126C98B00289E3A /* index.html in Resources */ = {isa = PBXBuildFile; fileRef = F0BCE6312126C98B00289E3A /* index.html */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,6 +64,7 @@
 		F0BCE62B2126B2BF00289E3A /* YHButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YHButton.m; sourceTree = "<group>"; };
 		F0BCE62D2126B59300289E3A /* YHWebViewProgress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YHWebViewProgress.m; sourceTree = "<group>"; };
 		F0BCE62E2126B59300289E3A /* YHWebViewProgress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YHWebViewProgress.h; sourceTree = "<group>"; };
+		F0BCE6312126C98B00289E3A /* index.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = index.html; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -114,6 +116,7 @@
 		F0AA9ADA2113180000967F9D /* YHWebViewController */ = {
 			isa = PBXGroup;
 			children = (
+				F0BCE6312126C98B00289E3A /* index.html */,
 				F0BCE62A2126B2BF00289E3A /* YHButton.h */,
 				F0BCE62B2126B2BF00289E3A /* YHButton.m */,
 				F0BCE6272126AC9800289E3A /* YHFristViewController.h */,
@@ -264,6 +267,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F0AA9AE82113180200967F9D /* LaunchScreen.storyboard in Resources */,
+				F0BCE6322126C98B00289E3A /* index.html in Resources */,
 				F0AA9AE52113180200967F9D /* Assets.xcassets in Resources */,
 				F0AA9AE32113180000967F9D /* Main.storyboard in Resources */,
 			);
