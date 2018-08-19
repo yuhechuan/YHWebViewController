@@ -40,7 +40,7 @@ static void *WkwebBrowserContext = &WkwebBrowserContext;
 
 @end
 
-@interface YHWebView ()<WKUIDelegate,WKNavigationDelegate,WKScriptMessageHandler>
+@interface YHWebView ()<WKUIDelegate,WKNavigationDelegate>
 
 @end
 
@@ -75,8 +75,6 @@ static void *WkwebBrowserContext = &WkwebBrowserContext;
     [self addObserver:self forKeyPath:NSStringFromSelector(@selector(estimatedProgress)) options:0 context:WkwebBrowserContext];
     self.allowsBackForwardNavigationGestures = YES;        //开启手势触摸
     [self sizeToFit];
-    
-    [self.configuration.userContentController addScriptMessageHandler:self name:@"uploadImageFromIOS"];
 }
 
 
@@ -96,18 +94,82 @@ static void *WkwebBrowserContext = &WkwebBrowserContext;
     }
 }
 
-#pragma mark -- WKNavigationDelegate
-
-- (void)webView:(WKWebView *)webView didFinishNavigation:(null_unspecified WKNavigation *)navigation {
-    if (self.didFinish) {
-        self.didFinish(webView);
+#pragma mark - WKNavigationDelegate 页面加载
+#pragma mark 页面开始加载时调用
+- (void)webView:(WKWebView *)webView didStartProvisionalNavigation:(null_unspecified WKNavigation *)navigation {
+    if (self.callBack) {
+        self.callBack(YHWebViewDidStart, webView, nil);
     }
 }
 
-- (void)userContentController:(WKUserContentController *)userContentController didReceiveScriptMessage:(WKScriptMessage *)message {
-    NSLog(@"%@",message);
+#pragma mark 当内容开始返回时调用
+- (void)webView:(WKWebView *)webView didCommitNavigation:(null_unspecified WKNavigation *)navigation {
+    if (self.callBack) {
+        self.callBack(YHWebViewDidCommit, webView, nil);
+    }
 }
 
+#pragma mark 页面加载完成之后调用
+- (void)webView:(WKWebView *)webView didFinishNavigation:(null_unspecified WKNavigation *)navigation {
+    if (self.callBack) {
+        self.callBack(YHWebViewDidFinish, webView, nil);
+    }
+}
+
+#pragma mark 页面加载失败时调用
+- (void)webView:(WKWebView *)webView didFailProvisionalNavigation:(null_unspecified WKNavigation *)navigation withError:(NSError *)error {
+    if (self.callBack) {
+        self.callBack(YHWebViewDidFail, webView, error);
+    }
+}
+
+
+#pragma mark - WKNavigationDelegate 页面跳转
+
+#pragma mark 在发送请求之前，决定是否跳转
+- (void)webView:(WKWebView *)webView decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
+    if (self.callBack) {
+        self.callBack(YHWebViewDecidePolicyAction, webView, nil);
+    }
+    decisionHandler(WKNavigationActionPolicyAllow);
+}
+
+#pragma mark 身份验证
+- (void)webView:(WKWebView *)webView didReceiveAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NSURLCredential *__nullable credential))completionHandler {
+    if (self.callBack) {
+        self.callBack(YHWebViewDidReceiveAuthentication, webView, nil);
+    }
+    completionHandler(NSURLSessionAuthChallengeUseCredential, nil);
+}
+
+#pragma mark 在收到响应后，决定是否跳转
+- (void)webView:(WKWebView *)webView decidePolicyForNavigationResponse:(WKNavigationResponse *)navigationResponse decisionHandler:(void (^)(WKNavigationResponsePolicy))decisionHandler {
+    if (self.callBack) {
+        self.callBack(YHWebViewDecidePolicyResponse, webView, nil);
+    }
+    decisionHandler(WKNavigationResponsePolicyAllow);
+}
+
+#pragma mark 接收到服务器跳转请求之后调用
+- (void)webView:(WKWebView *)webView didReceiveServerRedirectForProvisionalNavigation:(null_unspecified WKNavigation *)navigation {
+    if (self.callBack) {
+        self.callBack(YHWebViewDidReceiveServerRedirect, webView, nil);
+    }
+}
+
+#pragma mark WKNavigation导航错误
+- (void)webView:(WKWebView *)webView didFailNavigation:(null_unspecified WKNavigation *)navigation withError:(NSError *)error {
+    if (self.callBack) {
+        self.callBack(YHWebViewDidReceiveServerRedirect, webView, error);
+    }
+}
+
+#pragma mark WKWebView终止
+- (void)webViewWebContentProcessDidTerminate:(WKWebView *)webView {
+    if (self.callBack) {
+        self.callBack(YHWebViewDidTerminate, webView, nil);
+    }
+}
 
 - (void)dealloc {
     [self removeObserver:self forKeyPath:NSStringFromSelector(@selector(title))];

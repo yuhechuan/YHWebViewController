@@ -49,12 +49,19 @@ static void *WkwebBrowserContext = &WkwebBrowserContext;
         }
     };
     
-    self.wkWebView.didFinish = ^(WKWebView *webView) {
-        [weakSelf.progressView setProgress:1.0];
+    self.wkWebView.callBack = ^(YHWebViewDelegate callBackType, WKWebView *webView, NSError *error) {
+        if (callBackType == YHWebViewDidFinish) {
+            [weakSelf.progressView setProgress:1.0];
+        }
     };
 }
 
 - (void)configurationJS {
+    [self.wkWebView.configuration.userContentController addScriptMessageHandler:self name:@"uploadImageFromIOS"];
+}
+
+- (void)configurationOC {
+    [self.wkWebView evaluateJavaScript:@"btnClick()" completionHandler:nil];
 }
 
 - (void)loadWebViewURL {
@@ -87,6 +94,7 @@ static void *WkwebBrowserContext = &WkwebBrowserContext;
     //加载js
     [self.wkWebView loadHTMLString:html baseURL:[[NSBundle mainBundle] bundleURL]];
 }
+
 
 - (void)loadURLString {
     self.view.clipsToBounds = YES;
@@ -122,7 +130,7 @@ static void *WkwebBrowserContext = &WkwebBrowserContext;
 #pragma mark WKScriptMessageHandler
 
 - (void)userContentController:(WKUserContentController *)userContentController didReceiveScriptMessage:(WKScriptMessage *)message {
-    NSLog(@"%@",message);
+    NSLog(@"%@",message.name);
 }
 
 

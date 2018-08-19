@@ -7,14 +7,15 @@
 //
 
 #import <WebKit/WebKit.h>
-
-typedef void(^YHWebViewObserver)(NSDictionary *observer);
-typedef void(^YHWebViewDidFinish)(WKWebView *webView);
+#import "YHEnumeration.h"
 
 @interface YHWebView : WKWebView
 
 @property (nonatomic, copy) YHWebViewObserver observer;
-@property (nonatomic, copy) YHWebViewDidFinish didFinish;
+@property (nonatomic, copy) YHWebViewCallBack callBack;
+
+
+
 
 
 @end

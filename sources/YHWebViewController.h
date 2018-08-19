@@ -7,12 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
-typedef NS_ENUM(NSUInteger, YHLoadWebType) {
-    YHLoadWebTypeURLString = 1, // 加载url
-    YHLoadWebTypeHTMLString,    // 加载本地html文件
-    YHLoadWebTypeHTMLLabel      // 加载html标签
-};
+#import "YHEnumeration.h"
 
 @interface YHWebViewController : UIViewController
 
@@ -32,9 +27,13 @@ typedef NS_ENUM(NSUInteger, YHLoadWebType) {
 @property (nonatomic, assign) BOOL allowRealProgress;
 
 /*
- * progressView Color.   default is rgb (0,175,255,1)
+ * progressView Color.   default is rgb 
  */
 @property (nonatomic, strong) UIColor *progressColor;
+
+
+@property (nonatomic, copy) YHWebViewCallBack webCallBack;
+
 
 
 @end

@@ -65,6 +65,7 @@
 		F0BCE62D2126B59300289E3A /* YHWebViewProgress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YHWebViewProgress.m; sourceTree = "<group>"; };
 		F0BCE62E2126B59300289E3A /* YHWebViewProgress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YHWebViewProgress.h; sourceTree = "<group>"; };
 		F0BCE6312126C98B00289E3A /* index.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = index.html; sourceTree = "<group>"; };
+		F0BCE64221296B6400289E3A /* YHEnumeration.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YHEnumeration.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -159,6 +160,7 @@
 				F0AA9B0F2113186000967F9D /* YHWebViewController.m */,
 				F0BCE6242126973600289E3A /* YHWebView.h */,
 				F0BCE6252126973600289E3A /* YHWebView.m */,
+				F0BCE64221296B6400289E3A /* YHEnumeration.h */,
 			);
 			path = sources;
 			sourceTree = "<group>";
