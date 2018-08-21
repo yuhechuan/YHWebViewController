@@ -31,7 +31,9 @@
  */
 @property (nonatomic, strong) UIColor *progressColor;
 
-
+/*
+ * webView The web view invoking the delegate method
+ */
 @property (nonatomic, copy) YHWebViewCallBack webCallBack;
 
 

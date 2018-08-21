@@ -31,7 +31,6 @@ static void *WkwebBrowserContext = &WkwebBrowserContext;
 
 - (void)addConfiguration {
     [self.view addSubview:self.wkWebView];
-    //进度条
     [self.navigationController.navigationBar addSubview:self.progressView];
     [self configurationDelegate];
     [self configurationJS];
