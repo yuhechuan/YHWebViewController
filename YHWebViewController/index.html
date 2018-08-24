@@ -9,9 +9,10 @@
             console.log("yuhechuan");
         }
         var str = "yuhechuan";
-
+        var dic = {c:4, a:2, d:3, b:1}; // 定义一个字典
+        var arr = [dic];
         function btnClick() {
-            window.webkit.messageHandlers.uploadImageFromIOS.postMessage(str);
+            window.webkit.messageHandlers.test.postMessage(arr);
         }
         function showBase64Image(e){
             document.getElementById('img').src=e.image;

@@ -13,7 +13,7 @@
 /*
  * a class to bridging OC and JS
  */
-@property (nonatomic, copy) NSString *className;
+@property (nonatomic, strong) NSArray <NSString *>*classNameList;
 
 + (instancetype)sharedInstance;
 

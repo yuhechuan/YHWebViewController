@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import "YHFristViewController.h"
+#import "YHWebConfiguration.h"
 
 @interface AppDelegate ()
 
@@ -24,6 +25,7 @@
     YHFristViewController *f = [YHFristViewController new];
     UINavigationController *n = [[UINavigationController alloc]initWithRootViewController:f];
     self.window.rootViewController = n;
+    [YHWebConfiguration sharedInstance].classNameList = @[@"YHTestPlugin"];
     return YES;
 }
 

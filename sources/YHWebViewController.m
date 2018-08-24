@@ -12,7 +12,7 @@
 
 static void *WkwebBrowserContext = &WkwebBrowserContext;
 
-@interface YHWebViewController ()<WKScriptMessageHandler,UINavigationControllerDelegate,UINavigationBarDelegate>
+@interface YHWebViewController ()<UINavigationControllerDelegate,UINavigationBarDelegate>
 
 @property (nonatomic, strong) YHWebViewProgress *progressView;
 
@@ -50,7 +50,6 @@ static void *WkwebBrowserContext = &WkwebBrowserContext;
         }
     };
 }
-
 
 
 - (void)configurationOC {

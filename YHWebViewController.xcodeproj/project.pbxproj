@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F0008CE7212FF8E100170EFE /* YHProxyRouter.m in Sources */ = {isa = PBXBuildFile; fileRef = F0008CE5212FF8E000170EFE /* YHProxyRouter.m */; };
+		F0008CEA212FFF3D00170EFE /* YHTestPlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = F0008CE9212FFF3D00170EFE /* YHTestPlugin.m */; };
 		F0AA9ADD2113180000967F9D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F0AA9ADC2113180000967F9D /* AppDelegate.m */; };
 		F0AA9AE32113180000967F9D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F0AA9AE12113180000967F9D /* Main.storyboard */; };
 		F0AA9AE52113180200967F9D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F0AA9AE42113180200967F9D /* Assets.xcassets */; };
@@ -42,6 +44,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		F0008CE5212FF8E000170EFE /* YHProxyRouter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YHProxyRouter.m; sourceTree = "<group>"; };
+		F0008CE6212FF8E000170EFE /* YHProxyRouter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YHProxyRouter.h; sourceTree = "<group>"; };
+		F0008CE8212FFF3D00170EFE /* YHTestPlugin.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YHTestPlugin.h; sourceTree = "<group>"; };
+		F0008CE9212FFF3D00170EFE /* YHTestPlugin.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YHTestPlugin.m; sourceTree = "<group>"; };
 		F0AA9AD82113180000967F9D /* YHWebViewController.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YHWebViewController.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F0AA9ADB2113180000967F9D /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		F0AA9ADC2113180000967F9D /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -135,6 +141,8 @@
 				F0AA9AE62113180200967F9D /* LaunchScreen.storyboard */,
 				F0AA9AE92113180200967F9D /* Info.plist */,
 				F0AA9AEA2113180200967F9D /* main.m */,
+				F0008CE8212FFF3D00170EFE /* YHTestPlugin.h */,
+				F0008CE9212FFF3D00170EFE /* YHTestPlugin.m */,
 			);
 			path = YHWebViewController;
 			sourceTree = "<group>";
@@ -160,6 +168,8 @@
 		F0AA9B0D2113183E00967F9D /* sources */ = {
 			isa = PBXGroup;
 			children = (
+				F0008CE6212FF8E000170EFE /* YHProxyRouter.h */,
+				F0008CE5212FF8E000170EFE /* YHProxyRouter.m */,
 				F0BCE62E2126B59300289E3A /* YHWebViewProgress.h */,
 				F0BCE62D2126B59300289E3A /* YHWebViewProgress.m */,
 				F0AA9B0E2113186000967F9D /* YHWebViewController.h */,
@@ -312,9 +322,11 @@
 				F0BCE62F2126B59400289E3A /* YHWebViewProgress.m in Sources */,
 				F0AA9ADD2113180000967F9D /* AppDelegate.m in Sources */,
 				F0BCE686212C3F9800289E3A /* YHPlugin.m in Sources */,
+				F0008CE7212FF8E100170EFE /* YHProxyRouter.m in Sources */,
 				F0BCE6262126973600289E3A /* YHWebView.m in Sources */,
 				F0BCE62C2126B2BF00289E3A /* YHButton.m in Sources */,
 				F0BCE689212C40DF00289E3A /* YHWebConfiguration.m in Sources */,
+				F0008CEA212FFF3D00170EFE /* YHTestPlugin.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

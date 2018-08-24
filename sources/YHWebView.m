@@ -7,6 +7,7 @@
 //
 
 #import "YHWebView.h"
+#import "YHPlugin.h"
 
 static void *WkwebBrowserContext = &WkwebBrowserContext;
 
@@ -75,7 +76,7 @@ static void *WkwebBrowserContext = &WkwebBrowserContext;
     [self addObserver:self forKeyPath:NSStringFromSelector(@selector(estimatedProgress)) options:0 context:WkwebBrowserContext];
     self.allowsBackForwardNavigationGestures = YES;        //开启手势触摸
     [self sizeToFit];
-    [self addScriptClassName:nil];
+    [self addScriptClassName];
 }
 
 
@@ -95,8 +96,15 @@ static void *WkwebBrowserContext = &WkwebBrowserContext;
     }
 }
 
-- (void)addScriptClassName:(NSString *)className {
-    [self.configuration.userContentController addScriptMessageHandler:self name:@"uploadImageFromIOS"];
+- (void)addScriptClassName {
+    NSArray *plugins = [[YHPlugin sharedInstance] loadPlugin];
+    for (NSString *className in plugins) {
+        NSString *str = className;
+        if ([className containsString:@":"]) {
+            str = [className stringByReplacingOccurrencesOfString:@":" withString:@""];
+        }
+        [self.configuration.userContentController addScriptMessageHandler:self name:str];
+    }
 }
 
 #pragma mark - WKNavigationDelegate 页面加载
@@ -178,9 +186,10 @@ static void *WkwebBrowserContext = &WkwebBrowserContext;
 
 #pragma mark WKScriptMessageHandler 终止
 - (void)userContentController:(WKUserContentController *)userContentController didReceiveScriptMessage:(WKScriptMessage *)message {
-    id obj = message.body;
-    NSString *title = message.name;
-    NSLog(@"");
+    id arguments = message.body;
+    NSString *methodName = message.name;
+    [[YHPlugin sharedInstance] execute:methodName
+                             arguments:arguments];
 }
 
 - (void)dealloc {
