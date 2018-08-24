@@ -20,6 +20,8 @@
 		F0BCE62C2126B2BF00289E3A /* YHButton.m in Sources */ = {isa = PBXBuildFile; fileRef = F0BCE62B2126B2BF00289E3A /* YHButton.m */; };
 		F0BCE62F2126B59400289E3A /* YHWebViewProgress.m in Sources */ = {isa = PBXBuildFile; fileRef = F0BCE62D2126B59300289E3A /* YHWebViewProgress.m */; };
 		F0BCE6322126C98B00289E3A /* index.html in Resources */ = {isa = PBXBuildFile; fileRef = F0BCE6312126C98B00289E3A /* index.html */; };
+		F0BCE686212C3F9800289E3A /* YHPlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = F0BCE685212C3F9800289E3A /* YHPlugin.m */; };
+		F0BCE689212C40DF00289E3A /* YHWebConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = F0BCE688212C40DF00289E3A /* YHWebConfiguration.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -66,6 +68,10 @@
 		F0BCE62E2126B59300289E3A /* YHWebViewProgress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YHWebViewProgress.h; sourceTree = "<group>"; };
 		F0BCE6312126C98B00289E3A /* index.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = index.html; sourceTree = "<group>"; };
 		F0BCE64221296B6400289E3A /* YHEnumeration.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YHEnumeration.h; sourceTree = "<group>"; };
+		F0BCE684212C3F9800289E3A /* YHPlugin.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YHPlugin.h; sourceTree = "<group>"; };
+		F0BCE685212C3F9800289E3A /* YHPlugin.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YHPlugin.m; sourceTree = "<group>"; };
+		F0BCE687212C40DF00289E3A /* YHWebConfiguration.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YHWebConfiguration.h; sourceTree = "<group>"; };
+		F0BCE688212C40DF00289E3A /* YHWebConfiguration.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YHWebConfiguration.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -161,6 +167,10 @@
 				F0BCE6242126973600289E3A /* YHWebView.h */,
 				F0BCE6252126973600289E3A /* YHWebView.m */,
 				F0BCE64221296B6400289E3A /* YHEnumeration.h */,
+				F0BCE684212C3F9800289E3A /* YHPlugin.h */,
+				F0BCE685212C3F9800289E3A /* YHPlugin.m */,
+				F0BCE687212C40DF00289E3A /* YHWebConfiguration.h */,
+				F0BCE688212C40DF00289E3A /* YHWebConfiguration.m */,
 			);
 			path = sources;
 			sourceTree = "<group>";
@@ -301,8 +311,10 @@
 				F0AA9B102113186000967F9D /* YHWebViewController.m in Sources */,
 				F0BCE62F2126B59400289E3A /* YHWebViewProgress.m in Sources */,
 				F0AA9ADD2113180000967F9D /* AppDelegate.m in Sources */,
+				F0BCE686212C3F9800289E3A /* YHPlugin.m in Sources */,
 				F0BCE6262126973600289E3A /* YHWebView.m in Sources */,
 				F0BCE62C2126B2BF00289E3A /* YHButton.m in Sources */,
+				F0BCE689212C40DF00289E3A /* YHWebConfiguration.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

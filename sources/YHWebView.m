@@ -40,7 +40,7 @@ static void *WkwebBrowserContext = &WkwebBrowserContext;
 
 @end
 
-@interface YHWebView ()<WKUIDelegate,WKNavigationDelegate>
+@interface YHWebView ()<WKUIDelegate,WKNavigationDelegate,WKScriptMessageHandler>
 
 @end
 
@@ -75,6 +75,7 @@ static void *WkwebBrowserContext = &WkwebBrowserContext;
     [self addObserver:self forKeyPath:NSStringFromSelector(@selector(estimatedProgress)) options:0 context:WkwebBrowserContext];
     self.allowsBackForwardNavigationGestures = YES;        //开启手势触摸
     [self sizeToFit];
+    [self addScriptClassName:nil];
 }
 
 
@@ -92,6 +93,10 @@ static void *WkwebBrowserContext = &WkwebBrowserContext;
     } else {
         [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
     }
+}
+
+- (void)addScriptClassName:(NSString *)className {
+    [self.configuration.userContentController addScriptMessageHandler:self name:@"uploadImageFromIOS"];
 }
 
 #pragma mark - WKNavigationDelegate 页面加载
@@ -169,6 +174,13 @@ static void *WkwebBrowserContext = &WkwebBrowserContext;
     if (self.callBack) {
         self.callBack(YHWebViewDidTerminate, webView, nil);
     }
+}
+
+#pragma mark WKScriptMessageHandler 终止
+- (void)userContentController:(WKUserContentController *)userContentController didReceiveScriptMessage:(WKScriptMessage *)message {
+    id obj = message.body;
+    NSString *title = message.name;
+    NSLog(@"");
 }
 
 - (void)dealloc {

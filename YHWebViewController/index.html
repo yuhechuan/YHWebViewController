@@ -4,11 +4,14 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <script>
-        function uploadImageFromIOS() {
+        var str = "yuhechuan";
+        function uploadImageFromIOS(str) {
             console.log("yuhechuan");
         }
+        var str = "yuhechuan";
+
         function btnClick() {
-            window.webkit.messageHandlers.uploadImageFromIOS.postMessage(null);
+            window.webkit.messageHandlers.uploadImageFromIOS.postMessage(str);
         }
         function showBase64Image(e){
             document.getElementById('img').src=e.image;

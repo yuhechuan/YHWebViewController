@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "YHEnumeration.h"
+#import "YHWebView.h"
 
 @interface YHWebViewController : UIViewController
 
@@ -35,6 +36,11 @@
  * webView The web view invoking the delegate method
  */
 @property (nonatomic, copy) YHWebViewCallBack webCallBack;
+
+/*
+ * WKWebView to load url
+ */
+@property (nonatomic, strong) YHWebView *wkWebView;
 
 
 

@@ -8,14 +8,12 @@
 
 #import "YHWebViewController.h"
 #import <WebKit/WebKit.h>
-#import "YHWebView.h"
 #import "YHWebViewProgress.h"
 
 static void *WkwebBrowserContext = &WkwebBrowserContext;
 
 @interface YHWebViewController ()<WKScriptMessageHandler,UINavigationControllerDelegate,UINavigationBarDelegate>
 
-@property (nonatomic, strong) YHWebView *wkWebView;
 @property (nonatomic, strong) YHWebViewProgress *progressView;
 
 @end
@@ -33,7 +31,6 @@ static void *WkwebBrowserContext = &WkwebBrowserContext;
     [self.view addSubview:self.wkWebView];
     [self.navigationController.navigationBar addSubview:self.progressView];
     [self configurationDelegate];
-    [self configurationJS];
 }
 
 - (void)configurationDelegate {
@@ -47,7 +44,6 @@ static void *WkwebBrowserContext = &WkwebBrowserContext;
             [weakSelf.progressView setProgress:[observer[@"progress"] floatValue]];
         }
     };
-    
     self.wkWebView.callBack = ^(YHWebViewDelegate callBackType, WKWebView *webView, NSError *error) {
         if (callBackType == YHWebViewDidFinish) {
             [weakSelf.progressView setProgress:1.0];
@@ -55,9 +51,7 @@ static void *WkwebBrowserContext = &WkwebBrowserContext;
     };
 }
 
-- (void)configurationJS {
-    [self.wkWebView.configuration.userContentController addScriptMessageHandler:self name:@"uploadImageFromIOS"];
-}
+
 
 - (void)configurationOC {
     [self.wkWebView evaluateJavaScript:@"btnClick()" completionHandler:nil];
@@ -122,14 +116,6 @@ static void *WkwebBrowserContext = &WkwebBrowserContext;
     NSCharacterSet *allowedCharacters = [[NSCharacterSet characterSetWithCharactersInString:charactersToEscape] invertedSet];
     NSString *encodedUrl = [str stringByAddingPercentEncodingWithAllowedCharacters:allowedCharacters];
     return encodedUrl;
-}
-
-
-
-#pragma mark WKScriptMessageHandler
-
-- (void)userContentController:(WKUserContentController *)userContentController didReceiveScriptMessage:(WKScriptMessage *)message {
-    NSLog(@"%@",message.name);
 }
 
 
