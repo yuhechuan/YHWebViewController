@@ -42,6 +42,11 @@
  */
 @property (nonatomic, strong) YHWebView *wkWebView;
 
+/*
+ * evaluate js function [NSString stringWithFormat:@"functionName('%@')",参数];
+ */
+- (void)evaluateJavaScript:(NSString *)javaScript;
+
 
 
 @end

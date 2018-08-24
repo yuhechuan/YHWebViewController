@@ -15,6 +15,7 @@ static void *WkwebBrowserContext = &WkwebBrowserContext;
 @interface YHWebViewController ()<UINavigationControllerDelegate,UINavigationBarDelegate>
 
 @property (nonatomic, strong) YHWebViewProgress *progressView;
+@property (nonatomic, assign) BOOL isLoadFinished;
 
 @end
 
@@ -47,13 +48,18 @@ static void *WkwebBrowserContext = &WkwebBrowserContext;
     self.wkWebView.callBack = ^(YHWebViewDelegate callBackType, WKWebView *webView, NSError *error) {
         if (callBackType == YHWebViewDidFinish) {
             [weakSelf.progressView setProgress:1.0];
+            weakSelf.isLoadFinished = YES;
         }
     };
 }
 
 
-- (void)configurationOC {
-    [self.wkWebView evaluateJavaScript:@"btnClick()" completionHandler:nil];
+- (void)evaluateJavaScript:(NSString *)javaScript {
+    if (!self.isLoadFinished) {
+        NSLog(@"webView not load finish");
+        return;
+    }
+    [self.wkWebView evaluateJavaScript:javaScript completionHandler:nil];
 }
 
 - (void)loadWebViewURL {

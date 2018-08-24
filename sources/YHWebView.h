@@ -15,7 +15,4 @@
 @property (nonatomic, copy) YHWebViewCallBack callBack;
 
 
-
-
-
 @end
