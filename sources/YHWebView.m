@@ -8,6 +8,7 @@
 
 #import "YHWebView.h"
 #import "YHPlugin.h"
+#import "YHProcessPool.h"
 
 static void *WkwebBrowserContext = &WkwebBrowserContext;
 
@@ -30,8 +31,11 @@ static void *WkwebBrowserContext = &WkwebBrowserContext;
     self.allowsAirPlayForMediaPlayback = YES;//允许视频播放
     self.allowsInlineMediaPlayback = YES;    // 允许在线播放
     self.selectionGranularity = YES;         // 允许可以与网页交互，选择视图
-    
-    self.processPool = [[WKProcessPool alloc] init]; // web内容处理池
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+    self.mediaPlaybackRequiresUserAction = YES;
+#pragma clang diagnostic pop
+    self.processPool = [YHProcessPool sharedInstance]; // web内容处理池
     
     WKUserContentController *userContentController = [[WKUserContentController alloc]init];
     self.suppressesIncrementalRendering = YES;                 // 是否支持记忆读取
@@ -107,6 +111,20 @@ static void *WkwebBrowserContext = &WkwebBrowserContext;
     }
 }
 
+- (void)reloadCookie:(WKWebView *)webView
+    navigationAction:(WKNavigationAction *)navigationAction {
+    NSMutableURLRequest *newRequest = [navigationAction.request mutableCopy];
+    NSMutableArray *array = [NSMutableArray array];
+    for (NSHTTPCookie *cookie in [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookiesForURL:navigationAction.request.URL]) {
+        NSString *value = [NSString stringWithFormat:@"%@=%@", cookie.name, cookie.value];
+        [array addObject:value];
+    }
+    
+    NSString *cookie = [array componentsJoinedByString:@";"];
+    [newRequest setValue:cookie forHTTPHeaderField:@"Cookie"];
+    [webView loadRequest:newRequest];
+}
+
 #pragma mark - WKNavigationDelegate 页面加载
 #pragma mark 页面开始加载时调用
 - (void)webView:(WKWebView *)webView didStartProvisionalNavigation:(null_unspecified WKNavigation *)navigation {
@@ -124,6 +142,7 @@ static void *WkwebBrowserContext = &WkwebBrowserContext;
 
 #pragma mark 页面加载完成之后调用
 - (void)webView:(WKWebView *)webView didFinishNavigation:(null_unspecified WKNavigation *)navigation {
+    [self evaluateJavaScript:@"document.getElementsByTagName('body')[0].style.webkitTextSizeAdjust= '100%'" completionHandler:nil];
     if (self.callBack) {
         self.callBack(YHWebViewDidFinish, webView, nil);
     }
@@ -181,6 +200,19 @@ static void *WkwebBrowserContext = &WkwebBrowserContext;
 - (void)webViewWebContentProcessDidTerminate:(WKWebView *)webView {
     if (self.callBack) {
         self.callBack(YHWebViewDidTerminate, webView, nil);
+    }
+    // 白屏问题  ios9 以上
+    [self reload];
+}
+
+- (void)webView:(WKWebView *)webView runJavaScriptAlertPanelWithMessage:(NSString *)message initiatedByFrame:(WKFrameInfo *)frame completionHandler:(void (^)(void))completionHandler {
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"" message:message preferredStyle:UIAlertControllerStyleAlert];
+    [alertController addAction:[UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) { completionHandler(); }]];
+    UIViewController *present = [[UIApplication sharedApplication].keyWindow rootViewController];
+    if (present){
+        [present presentViewController:alertController animated:YES completion:^{}];
+    } else {
+        completionHandler();
     }
 }
 

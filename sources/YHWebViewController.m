@@ -28,9 +28,22 @@ static void *WkwebBrowserContext = &WkwebBrowserContext;
     // Do any additional setup after loading the view.
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    if ((!self.wkWebView.title || self.wkWebView.title.length == 0) && self.isLoadFinished) {
+        [self.wkWebView reload];
+    }
+    [self.navigationController.navigationBar addSubview:self.progressView];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [self.progressView removeFromSuperview];
+}
+
+
 - (void)addConfiguration {
     [self.view addSubview:self.wkWebView];
-    [self.navigationController.navigationBar addSubview:self.progressView];
     [self configurationDelegate];
 }
 
