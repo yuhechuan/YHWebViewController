@@ -47,6 +47,8 @@ static void *WkwebBrowserContext = &WkwebBrowserContext;
 
 @interface YHWebView ()<WKUIDelegate,WKNavigationDelegate,WKScriptMessageHandler,UIScrollViewDelegate>
 
+@property (nonatomic, strong) UILabel *webPageFromWho;                  // 网页由谁提供
+
 @end
 
 @implementation YHWebView
@@ -72,7 +74,8 @@ static void *WkwebBrowserContext = &WkwebBrowserContext;
 }
 
 - (void)setup {
-    self.backgroundColor = [UIColor whiteColor];
+    self.backgroundColor = [UIColor colorWithRed:46.0f / 255 green:49.0f / 255 blue:50.0f / 255 alpha:1];
+    self.scrollView.backgroundColor = [UIColor redColor];
     self.navigationDelegate = self;
     self.UIDelegate = self;
     //kvo 添加进度监控
@@ -81,6 +84,11 @@ static void *WkwebBrowserContext = &WkwebBrowserContext;
     self.allowsBackForwardNavigationGestures = YES;        //开启手势触摸
     [self sizeToFit];
     [self addScriptClassName];
+}
+
+- (void)setFromController:(UIViewController *)fromController {
+    _fromController = fromController;
+    [self setupWebPageFromInformation];
 }
 
 
@@ -111,10 +119,6 @@ static void *WkwebBrowserContext = &WkwebBrowserContext;
     }
 }
 
-- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
-    scrollView.decelerationRate = UIScrollViewDecelerationRateNormal;
-}
-
 - (void)reloadCookie:(WKWebView *)webView
     navigationAction:(WKNavigationAction *)navigationAction {
     NSMutableURLRequest *newRequest = [navigationAction.request mutableCopy];
@@ -127,6 +131,59 @@ static void *WkwebBrowserContext = &WkwebBrowserContext;
     NSString *cookie = [array componentsJoinedByString:@";"];
     [newRequest setValue:cookie forHTTPHeaderField:@"Cookie"];
     [webView loadRequest:newRequest];
+}
+
+- (void)setupWebPageFromInformation {
+    CGRect statusBarViewRect = [[UIApplication sharedApplication] statusBarFrame];
+    float heightPadding = statusBarViewRect.size.height;
+    if (self.fromController.navigationController) {
+        heightPadding = statusBarViewRect.size.height + self.fromController.navigationController.navigationBar.frame.size.height;
+    }
+    UIWindow *keyWindow = [UIApplication sharedApplication].keyWindow;
+    [keyWindow addSubview:self.webPageFromWho];
+    [keyWindow bringSubviewToFront:self.webPageFromWho];
+    CGFloat totalWith = [UIScreen mainScreen].bounds.size.width;
+    self.webPageFromWho.frame = CGRectMake(5,64 + 10 ,totalWith - 2 *5 ,20);
+}
+
+
+- (void)yh_webView:(WKWebView *)webView didFinishNavigationAction:(WKNavigationAction *)navigationAction {
+    NSURLRequest *request = navigationAction.request;
+    if (request.URL.host) {
+        NSNumber *port = request.URL.port;
+        if (port) {
+            self.webPageFromWho.text = [NSString stringWithFormat:@"网页由 %@:%@ 提供", request.URL.host, port];
+        } else {
+            self.webPageFromWho.text = [NSString stringWithFormat:@"网页由 %@ 提供", request.URL.host];
+        }
+    }
+}
+
+
+- (UILabel *)webPageFromWho {
+    if (!_webPageFromWho) {
+        _webPageFromWho = [[UILabel alloc] init];
+        _webPageFromWho.numberOfLines = 2;
+        _webPageFromWho.textColor = [UIColor grayColor];
+        _webPageFromWho.textAlignment = NSTextAlignmentCenter;
+        _webPageFromWho.font = [UIFont systemFontOfSize:12];
+        _webPageFromWho.alpha = 0;
+    }
+    return _webPageFromWho;
+}
+
+#pragma mark - UIScrollViewDelegate
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+    scrollView.decelerationRate = UIScrollViewDecelerationRateNormal;
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    CGFloat y = scrollView.contentOffset.y;
+    if (y < -94) {
+        self.webPageFromWho.alpha = 1;
+    } else {
+        self.webPageFromWho.alpha = 0;
+    }
 }
 
 #pragma mark - WKNavigationDelegate 页面加载
@@ -164,6 +221,7 @@ static void *WkwebBrowserContext = &WkwebBrowserContext;
 
 #pragma mark 在发送请求之前，决定是否跳转
 - (void)webView:(WKWebView *)webView decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
+    [self yh_webView:webView didFinishNavigationAction:navigationAction];
     if (self.callBack) {
         self.callBack(YHWebViewDecidePolicyAction, webView, nil);
     }
@@ -229,6 +287,7 @@ static void *WkwebBrowserContext = &WkwebBrowserContext;
 }
 
 - (void)dealloc {
+    [self.webPageFromWho removeFromSuperview];
     [self removeObserver:self forKeyPath:NSStringFromSelector(@selector(title))];
     [self removeObserver:self forKeyPath:NSStringFromSelector(@selector(estimatedProgress))];
 }

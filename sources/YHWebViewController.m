@@ -44,6 +44,7 @@ static void *WkwebBrowserContext = &WkwebBrowserContext;
 
 - (void)addConfiguration {
     [self.view addSubview:self.wkWebView];
+    self.view.backgroundColor = [UIColor colorWithRed:46.0f / 255 green:49.0f / 255 blue:50.0f / 255 alpha:1];
     [self configurationDelegate];
     [self createCancelBarButtonItem];
 }
@@ -151,6 +152,7 @@ static void *WkwebBrowserContext = &WkwebBrowserContext;
 - (YHWebView *)wkWebView{
     if (!_wkWebView) {
         _wkWebView = [[YHWebView alloc] initWithFrame:self.view.bounds];
+        _wkWebView.fromController = self;
     }
     return _wkWebView;
 }
@@ -165,6 +167,15 @@ static void *WkwebBrowserContext = &WkwebBrowserContext;
         if (!self.allowRealProgress) [_progressView displayStartAnimation];
     }
     return _progressView;
+}
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    NSLog(@"YHWebViewController收到内存警告，停止加载释放内存");
+    if ([self.wkWebView isLoading]) {
+        [self.wkWebView stopLoading];
+    }
+    [[NSURLCache sharedURLCache] removeAllCachedResponses];
 }
 
 @end

@@ -13,6 +13,7 @@
 
 @property (nonatomic, copy) YHWebViewObserver observer;
 @property (nonatomic, copy) YHWebViewCallBack callBack;
+@property (nonatomic, weak) UIViewController *fromController;
 
 
 @end
