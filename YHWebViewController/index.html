@@ -1,40 +1,37 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
+
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-    <script>
-        var str = "yuhechuan";
-        function uploadImageFromIOS(str) {
-            console.log("yuhechuan");
-        }
-        var str = "yuhechuan";
-        var dic = {c:4, a:2, d:3, b:1}; // 定义一个字典
-        var arr = [dic];
-        function btnClick() {
-            window.webkit.messageHandlers.test.postMessage(arr);
-            alert(arr);
-            alert(str);
-        }
-        function showBase64Image(e){
-            document.getElementById('img').src=e.image;
-        }
-    </script>
-    <style type="text/css">
-        #img {
-            height: 600px;
-            width:600px;
-            background-color:red;
-            position:auto;
-        }
-    </style>
+
+  <meta charset="UTF-8">
+
+  <title>JS和OC交互</title>
+
+    <link rel="stylesheet" href="style.css" media="screen" type="text/css" />
+
 </head>
+
+<script>
+//判断是否是安卓还是ios
+function isAndroid_ios(){
+    var str = "给OC的数据";
+    window.webkit.messageHandlers.test.postMessage(str);
+}
+
+function send_message(e){
+    var str = "这是一个JS控件" + e;
+    alert(str);
+}
+                         
+</script>
+
 <body>
-        <button type="submit" id="btn_submit" onclick="btnClick()"> submit </button>
-        <img id="img" alt="Base64 encoded image">
-    
+
+<div class="row">
+    <span class="btn btn-large cancel" onclick="isAndroid_ios()">调用OC方法一</span>
+    <span class="btn btn-large-two submit" onclick="send_message()">调用JS方法二</span>
+</div>
+  
 </body>
-
-
 
 </html>

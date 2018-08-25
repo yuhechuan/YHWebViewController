@@ -64,6 +64,7 @@ static void *WkwebBrowserContext = &WkwebBrowserContext;
         if (callBackType == YHWebViewDidFinish) {
             [weakSelf.progressView setProgress:1.0];
             weakSelf.isLoadFinished = YES;
+            [weakSelf evaluateJavaScript:@"send_message()"];
         }
     };
 }
@@ -126,7 +127,25 @@ static void *WkwebBrowserContext = &WkwebBrowserContext;
 }
 
 - (void)loadHTMLLabel:(NSString *)html {
-    [self.wkWebView loadHTMLString:html baseURL:nil];
+    NSString *htmlString = [NSString stringWithFormat:@"<html> \n"
+                            "<head> \n"
+                            "<style type=\"text/css\"> \n"
+                            "body {font-size:15px;}\n"
+                            "</style> \n"
+                            "</head> \n"
+                            "<body>"
+                            "<script type='text/javascript'>"
+                            "window.onload = function(){\n"
+                            "var $img = document.getElementsByTagName('img');\n"
+                            "for(var p in  $img){\n"
+                            " $img[p].style.width = '100%%';\n"
+                            "$img[p].style.height ='auto'\n"
+                            "}\n"
+                            "}"
+                            "</script>%@"
+                            "</body>"
+                            "</html>",html];
+    [self.wkWebView loadHTMLString:htmlString baseURL:nil];
 }
 
 - (NSString *)encodeUrl {
@@ -176,6 +195,10 @@ static void *WkwebBrowserContext = &WkwebBrowserContext;
         [self.wkWebView stopLoading];
     }
     [[NSURLCache sharedURLCache] removeAllCachedResponses];
+}
+
+- (void)dealloc {
+    NSLog(@"YHWebViewController 已销毁");
 }
 
 @end
