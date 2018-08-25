@@ -13,6 +13,7 @@
 @interface YHFristViewController ()
 
 @property (nonatomic, strong) YHButton *display;
+@property (nonatomic, strong) YHButton *displayPresent;
 
 @end
 
@@ -33,13 +34,21 @@
     CGFloat x = (self.view.bounds.size.width - width) / 2.0;
     CGFloat y1 = 200;
     _display = [[YHButton alloc]initWithFrame:CGRectMake(x, y1, width, height)];
-    _display.title = @"演示";
+    _display.title = @"演示Push";
     _display.buttonColor = [UIColor colorWithRed:70 / 225.0 green:187 / 255.0 blue:38 / 255.0 alpha:1];
     typeof(self) __weak weakSelf = self;
     _display.operation = ^{
         [weakSelf displayAnimation];
     };
     [self.view addSubview:_display];
+    
+    _displayPresent = [[YHButton alloc]initWithFrame:CGRectMake(x, y1+ height *2, width, height)];
+    _displayPresent.title = @"演示Present";
+    _displayPresent.buttonColor = [UIColor colorWithRed:230 / 225.0 green:103 / 255.0 blue:103 / 255.0 alpha:1];
+    _displayPresent.operation = ^{
+        [weakSelf displayAnimationPresent];
+    };
+    [self.view addSubview:_displayPresent];
 }
 
 - (void)displayAnimation {
@@ -48,6 +57,12 @@
     [self.navigationController pushViewController:w animated:YES];
 }
 
+- (void)displayAnimationPresent {
+    YHWebViewController *w = [[YHWebViewController alloc]init];
+    w.openUrl = @"https://www.baidu.com";
+    UINavigationController *n = [[UINavigationController alloc]initWithRootViewController:w];
+    [self presentViewController:n animated:YES completion:nil];
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

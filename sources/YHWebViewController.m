@@ -45,6 +45,7 @@ static void *WkwebBrowserContext = &WkwebBrowserContext;
 - (void)addConfiguration {
     [self.view addSubview:self.wkWebView];
     [self configurationDelegate];
+    [self createCancelBarButtonItem];
 }
 
 - (void)configurationDelegate {
@@ -66,6 +67,16 @@ static void *WkwebBrowserContext = &WkwebBrowserContext;
     };
 }
 
+- (void)createCancelBarButtonItem {
+    if (self.presentingViewController) {
+        UIBarButtonItem *cancel = [[UIBarButtonItem alloc]initWithTitle:@"取消" style:UIBarButtonItemStyleDone target:self action:@selector(dismissController)];
+        self.navigationItem.leftBarButtonItem = cancel;
+    }
+}
+
+- (void)dismissController {
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
 
 - (void)evaluateJavaScript:(NSString *)javaScript {
     if (!self.isLoadFinished) {
