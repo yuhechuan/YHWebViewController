@@ -74,8 +74,8 @@ static void *WkwebBrowserContext = &WkwebBrowserContext;
 }
 
 - (void)setup {
-    self.backgroundColor = [UIColor colorWithRed:46.0f / 255 green:49.0f / 255 blue:50.0f / 255 alpha:1];
-    self.scrollView.backgroundColor = [UIColor redColor];
+    self.backgroundColor = [UIColor whiteColor];
+    self.scrollView.backgroundColor = [UIColor whiteColor];
     self.navigationDelegate = self;
     self.UIDelegate = self;
     //kvo 添加进度监控
@@ -180,7 +180,9 @@ static void *WkwebBrowserContext = &WkwebBrowserContext;
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     CGFloat y = scrollView.contentOffset.y;
     if (y < -94) {
-        self.webPageFromWho.alpha = 1;
+        CGFloat offsety = - 94 - y;
+        float sale = offsety / 60;
+        self.webPageFromWho.alpha = sale;
     } else {
         self.webPageFromWho.alpha = 0;
     }
