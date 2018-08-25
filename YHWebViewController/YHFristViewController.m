@@ -44,8 +44,7 @@
 
 - (void)displayAnimation {
     YHWebViewController *w = [[YHWebViewController alloc]init];
-    w.openUrl = @"index";
-    w.loadWebType = YHLoadWebTypeHTMLString;
+    w.openUrl = @"https://www.baidu.com";
     [self.navigationController pushViewController:w animated:YES];
 }
 

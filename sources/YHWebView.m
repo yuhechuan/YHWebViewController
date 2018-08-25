@@ -45,7 +45,7 @@ static void *WkwebBrowserContext = &WkwebBrowserContext;
 
 @end
 
-@interface YHWebView ()<WKUIDelegate,WKNavigationDelegate,WKScriptMessageHandler>
+@interface YHWebView ()<WKUIDelegate,WKNavigationDelegate,WKScriptMessageHandler,UIScrollViewDelegate>
 
 @end
 
@@ -109,6 +109,10 @@ static void *WkwebBrowserContext = &WkwebBrowserContext;
         }
         [self.configuration.userContentController addScriptMessageHandler:self name:str];
     }
+}
+
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+    scrollView.decelerationRate = UIScrollViewDecelerationRateNormal;
 }
 
 - (void)reloadCookie:(WKWebView *)webView
