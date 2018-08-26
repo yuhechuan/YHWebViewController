@@ -66,6 +66,10 @@ static void *WkwebBrowserContext = &WkwebBrowserContext;
             weakSelf.isLoadFinished = YES;
             [weakSelf evaluateJavaScript:@"send_message()"];
         }
+        
+        if (weakSelf.webCallBack) {
+            weakSelf.webCallBack(callBackType, webView, error);
+        }
     };
 }
 
