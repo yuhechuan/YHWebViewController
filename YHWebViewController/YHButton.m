@@ -12,6 +12,8 @@
 - (instancetype)initWithFrame:(CGRect)frame {
     if (self= [super initWithFrame:frame]) {
         [self setUp];
+        NSLog(@"%@", NSStringFromClass([self class]));
+        NSLog(@"%@", NSStringFromClass([super class]));
     }
     return self;
 }

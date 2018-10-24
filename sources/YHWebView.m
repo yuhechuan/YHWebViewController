@@ -9,6 +9,23 @@
 #import "YHWebView.h"
 #import "YHPlugin.h"
 #import "YHProcessPool.h"
+// 导航栏高度
+#define NAVIGATION_BAR_HEIGHT (isIphoneX ? 88.f : 64.f)
+
+#define isIphoneX ({\
+int tmp = 0;\
+if (@available(iOS 11.0, *)) {\
+if (!UIEdgeInsetsEqualToEdgeInsets([UIApplication sharedApplication].delegate.window.safeAreaInsets, UIEdgeInsetsZero)) {\
+tmp = 1;\
+}else{\
+tmp = 0;\
+}\
+}else{\
+tmp = 0;\
+}\
+tmp;\
+})
+
 
 static void *WkwebBrowserContext = &WkwebBrowserContext;
 
@@ -143,7 +160,11 @@ static void *WkwebBrowserContext = &WkwebBrowserContext;
     [keyWindow addSubview:self.webPageFromWho];
     [keyWindow bringSubviewToFront:self.webPageFromWho];
     CGFloat totalWith = [UIScreen mainScreen].bounds.size.width;
-    self.webPageFromWho.frame = CGRectMake(5,64 + 10 ,totalWith - 2 *5 ,20);
+    CGFloat leftMargin = 5;
+    CGFloat topMargin = 10;
+    CGFloat height = 20;
+    CGFloat x = NAVIGATION_BAR_HEIGHT;
+    self.webPageFromWho.frame = CGRectMake(leftMargin,NAVIGATION_BAR_HEIGHT + topMargin,totalWith - 2 *leftMargin ,height);
 }
 
 
